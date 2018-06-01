@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema name="autoSolrSchema" version="1.5">
+    <types>
+        <fieldType class="org.apache.solr.schema.StrField" name="StrField"/>
+        <fieldType class="org.apache.solr.schema.TextField" name="TextField">
+            <analyzer>
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+    </types>
+    <fields>
+        <field indexed="true" multiValued="false" name="id" stored="true" type="StrField"/>
+        <field indexed="true" multiValued="false" name="complexvalue" stored="true" type="StrField"/>
+        <dynamicField name="map_*"  type="TextField"  indexed="true"  stored="true" multiValued="true"/>
+    </fields>
+    <uniqueKey>id</uniqueKey>
+</schema>

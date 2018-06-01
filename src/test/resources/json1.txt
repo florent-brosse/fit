@@ -1,0 +1,12 @@
+{
+	"creditRequestId": "azerty123",
+	"credit": {
+		"name": "Mortgage",
+		"amount": "100000",
+		"duration": "60",
+		"garantor": {
+			"partyId1": "abc123",
+			"partyId2": "def456"
+		}
+	}
+}
