@@ -9,10 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
-public class JsonSimpleFieldInputTransformer extends FieldInputTransformer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JsonSimpleFieldInputTransformer.class);
+public class JsonListFieldInputTransformer extends FieldInputTransformer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonListFieldInputTransformer.class);
 
     @Override
     public boolean evaluate(String field) {
@@ -32,11 +33,13 @@ public class JsonSimpleFieldInputTransformer extends FieldInputTransformer {
         try {
             LOGGER.debug("JsonFieldInputTransformer called");
             LOGGER.debug("fieldValue: " + fieldValue);
-            Map<String, String> stringMap = JsonMapConverter.createMap(fieldValue);
+            Map<String, List<String>> stringMap = JsonMapConverter.createMapList(fieldValue);
 
-            for (Map.Entry<String, String> entry : stringMap.entrySet()) {
+            for (Map.Entry<String,List<String>> entry : stringMap.entrySet()) {
                 SchemaField mapField = core.getLatestSchema().getField("map_" + entry.getKey());
-                helper.addFieldToDocument(core, core.getLatestSchema(), key, doc, mapField, entry.getValue());
+                for (String value : entry.getValue()){
+                    helper.addFieldToDocument(core, core.getLatestSchema(), key, doc, mapField, value);
+                }
             }
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage());

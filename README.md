@@ -11,7 +11,7 @@ This is an example of https://docs.datastax.com/en/dse/5.1/dse-dev/datastax_ente
 CREATE KEYSPACE fit WITH replication = {'class': 'SimpleStrategy' , 'replication_factor': 1 };
  
 
-CREATE TABLE fit.json (
+CREATE TABLE fit.jsonlist (
     id text PRIMARY KEY,
     complexvalue text
 );
@@ -28,15 +28,38 @@ cp target/fit-1.0-SNAPSHOT.jar /home/florent/soft/dse-5.1.6/resources/solr/lib/
 
 restart node
 
-dsetool create_core fit.json schema=schema.xml solrconfig=config.xml
+dsetool create_core fit.jsonlist schema=schemaList.xml solrconfig=configList.xml
 
-INSERT INTO fit.json (id, complexvalue) VALUES ('test2','{"name":"Mortgage","amount":"100000","duration":"60","garantor":{"partyId1":"abc123","partyId2":"def456"}}');
+INSERT INTO fit.jsonlist (id, complexvalue) VALUES ('test2','{"name":"Mortgage","amount":"100000","duration":"60","garantor":{"partyId1":"abc123","partyId2":"def456"}}');
 
-cqlsh> select * from fit.json where solr_query='map_garantor.partyId1:abc123' ;
+select * from fit.jsonlist where solr_query='map_garantor.partyId1:abc123' ;
 
  id    | complexvalue                                                                                               | solr_query
 -------+------------------------------------------------------------------------------------------------------------+------------
  test2 | {"name":"Mortgage","amount":"100000","duration":"60","garantor":{"partyId1":"abc123","partyId2":"def456"}} |       null
- test3 | {"name":"Mortgage","amount":"100000","duration":"60","garantor":{"partyId1":"abc123","partyId2":"def456"}} |       null
 
+
+INSERT INTO fit.jsonlist (id, complexvalue) VALUES ('test','{"name":"John","age":30,"cars":["Ford","BMW","Fiat Panda"]}');
+
+select * from fit.jsonlist where solr_query='map_cars_:ford' ;
+
+ id   | complexvalue                                          | solr_query
+------+-------------------------------------------------------+------------
+ test | {"name":"John","age":30,"cars":["Ford","BMW","Fiat Panda"]} |       null
+
+
+
+select * from fit.jsonlist where solr_query='map_cars_:"ford bmw"' ;
+
+ id | complexvalue | solr_query
+----+--------------+------------
+
+(0 rows)    // as expected
+
+
+select * from fit.jsonlist where solr_query='map_cars_:"fiat panda"' ; 
+
+ id   | complexvalue                                                | solr_query
+------+-------------------------------------------------------------+------------
+ test | {"name":"John","age":30,"cars":["Ford","BMW","Fiat Panda"]} |       null
 

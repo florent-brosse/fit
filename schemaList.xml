@@ -2,7 +2,7 @@
 <schema name="autoSolrSchema" version="1.5">
     <types>
         <fieldType class="org.apache.solr.schema.StrField" name="StrField"/>
-        <fieldType class="org.apache.solr.schema.TextField" name="TextField">
+        <fieldType class="org.apache.solr.schema.TextField" name="TextField" positionIncrementGap="100">
             <analyzer>
                 <tokenizer class="solr.StandardTokenizerFactory"/>
                 <filter class="solr.LowerCaseFilterFactory"/>
@@ -12,7 +12,7 @@
     <fields>
         <field indexed="true" multiValued="false" name="id" stored="true" type="StrField"/>
         <field indexed="true" multiValued="false" name="complexvalue" stored="true" type="StrField"/>
-        <dynamicField name="map_*"  type="TextField"  indexed="true"  stored="true" multiValued="true"/>
+        <dynamicField name="map_*"  type="TextField"  indexed="true"  stored="true" multiValued="true" />
     </fields>
     <uniqueKey>id</uniqueKey>
 </schema>
