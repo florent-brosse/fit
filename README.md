@@ -14,9 +14,11 @@ CREATE TABLE fit.json (
 );
 
 mvn clean install
+
 copy target/fit-1.0-SNAPSHOT.jar to install-location/resources/solr/lib 
 
 in my laptop
+
 cp target/fit-1.0-SNAPSHOT.jar /home/florent/soft/dse-5.1.6/resources/solr/lib/
 
 restart node
