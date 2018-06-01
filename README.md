@@ -13,6 +13,8 @@ CREATE TABLE fit.json (
     complexvalue text
 );
 
+You need to have download and unzip dse and set path in maven of 3 jars
+
 mvn clean install
 
 copy target/fit-1.0-SNAPSHOT.jar to install-location/resources/solr/lib 
