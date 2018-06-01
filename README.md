@@ -1,5 +1,7 @@
 ## How to search into schema-less JSON with DSE?
 
+The idea is to flatten JSON keys and put keys/values in a dynamic field by a FIT.
+
 ### Field input/output (FIT) transformer API
 
 This is an example of https://docs.datastax.com/en/dse/5.1/dse-dev/datastax_enterprise/search/fieldInputOutputTransformerApi.html
