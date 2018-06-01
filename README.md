@@ -15,7 +15,7 @@ CREATE TABLE fit.json (
     complexvalue text
 );
 
-You need to have download and unzip dse and set path in maven of 3 jars
+You need to download and unzip dse and set path in maven of 3 jars
 
 mvn clean install
 
