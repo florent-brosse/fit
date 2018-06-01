@@ -1,6 +1,7 @@
 ## How to search into schema-less JSON with DSE?
 
-The idea is to flatten JSON keys and put keys/values in a dynamic field by a FIT.
+The idea is to flatten JSON keys and put keys/values in a dynamic map field through a Field Input Transformer.
+
 
 ### Field input/output (FIT) transformer API
 
