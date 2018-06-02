@@ -2,6 +2,7 @@
 
 The idea is to flatten JSON keys and put keys/values in a dynamic map field through a Field Input Transformer.
 
+If you need different analyzers, you can add several dynamic field in the schema.xml.
 
 ### Field input/output (FIT) transformer API
 
